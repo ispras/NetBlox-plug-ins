@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         name="Communities sizes distribution as graph mining extension (description parser)"
+         point="scenario.parsers">
+      <parser
+            class="numericDistributionsOnGroupsOfNodes.ParserCallback"
+            parseInPlugin="true"
+            scenaryName="commSizesDistribution"
+            sectionTag="graphMining">
+      </parser>
+   </extension>
+   <extension
+         name="Nodes memberships in communities distribution as graph mining extension (description parser)"
+         point="scenario.parsers">
+      <parser
+            class="numericDistributionsOnGroupsOfNodes.ParserCallback"
+            parseInPlugin="true"
+            scenaryName="nodesMembershipsDistribution"
+            sectionTag="graphMining">
+      </parser>
+   </extension>
+   <extension
+         name="Communities sizes distribution as graph mining extension"
+         point="graph.miners">
+      <miner
+            algorithmNameInScenary="commSizesDistribution"
+            class="numericDistributionsOnGroupsOfNodes.CommunitiesSizesDistributionAsGraphMining"
+            isSourceInFiles="false">
+      </miner>
+   </extension>
+   <extension
+         name="Nodes memberships in communities distribution as graph mining extension"
+         point="graph.miners">
+      <miner
+            algorithmNameInScenary="nodesMembershipsDistribution"
+            class="numericDistributionsOnGroupsOfNodes.NodesMembershipsDistributionAsGraphMining"
+            isSourceInFiles="false">
+      </miner>
+   </extension>
+   <extension
+         name="Communities sizes distribution (description parser)"
+         point="scenario.parsers">
+      <parser
+            class="numericDistributionsOnGroupsOfNodes.ParserCallback"
+            parseInPlugin="true"
+            scenaryName="commSizesDistribution"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Nodes memberships in communities distribution (description parser)"
+         point="scenario.parsers">
+      <parser
+            class="numericDistributionsOnGroupsOfNodes.ParserCallback"
+            parseInPlugin="true"
+            scenaryName="nodesMembershipsDistribution"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Communities sizes distribution"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="commSizesDistribution"
+            class="numericDistributionsOnGroupsOfNodes.CommunitiesSizesDistributionCharacteristicCallback"
+            isSourceInFiles="false">
+      </computer>
+   </extension>
+   <extension
+         name="Nodes memberships in communities distribution"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="nodesMembershipsDistribution"
+            class="numericDistributionsOnGroupsOfNodes.NodesMembershipsDistributionCharacteristicCallback"
+            isSourceInFiles="false">
+      </computer>
+   </extension>
+
+</plugin>

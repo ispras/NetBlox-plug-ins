@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Numeric Graph Statistics
+Bundle-SymbolicName: numericGraphStats;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: numericGraphStats.Activator
+Bundle-Vendor: MODIS
+Require-Bundle: org.eclipse.core.runtime,
+ NetBlox;bundle-version="0.8.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

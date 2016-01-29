@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         name="Clustering coefficient description parser"
+         point="scenario.parsers">
+      <parser
+            class="numericGraphStats.GraphStatsDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="clusteringCoef"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Average degree description parser"
+         point="scenario.parsers">
+      <parser
+            class="numericGraphStats.GraphStatsDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="averageDegree"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Diameter description parser"
+         point="scenario.parsers">
+      <parser
+            class="numericGraphStats.GraphStatsDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="diameter"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Degrees distribution description parser"
+         point="scenario.parsers">
+      <parser
+            class="numericGraphStats.GraphStatsDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="degreesDistribution"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Diameter computer"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="diameter"
+            class="numericGraphStats.GraphStatisticCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Clustering coefficient computer"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="clusteringCoef"
+            class="numericGraphStats.GraphStatisticCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Degrees distribution computer"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="degreesDistribution"
+            class="numericGraphStats.GraphStatisticCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Average degree computer"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="averageDegree"
+            class="numericGraphStats.GraphStatisticCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Parsing the description of degrees distribution as a graph mining extension."
+         point="scenario.parsers">
+      <parser
+            class="numericGraphStats.GraphStatsDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="degreesDistribution"
+            sectionTag="graphMining">
+      </parser>
+   </extension>
+   <extension
+         name="Degrees distribution graph mining callback."
+         point="graph.miners">
+      <miner
+            algorithmNameInScenary="degreesDistribution"
+            class="numericGraphStats.GraphStatsMiningCallback"
+            isSourceInFiles="true">
+      </miner>
+   </extension>
+
+</plugin>

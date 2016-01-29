@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         name="Cohesiveness description parser"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="commCohesiveness"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Triangles Participation Ratio statistic description parser"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="TPR"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Cohesiveness computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="commCohesiveness"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="false">
+      </computer>
+   </extension>
+   <extension
+         name="Triangles Participation Ratio computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="TPR"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="false">
+      </computer>
+   </extension>
+   <extension
+         name="Separability statistic description parsing callback"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="commSeparability"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Density description parsing"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="commDensity"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Conductance description parsing"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="commConductance"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="ICDF description parsing"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="ICDF"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Connected Components In Communities statistic description parsing"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="ConnectedComponentsInCommunities"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Separability statistic computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="commSeparability"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Density statistic computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="commDensity"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Conductance statistic computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="commConductance"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="ICDF computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="ICDF"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Connected Components In Communities statistic computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="ConnectedComponentsInCommunities"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Cohesion Via Triangles statistic description parser callback"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="cohesionViaTriangles"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Average Cohesion Via Triangles statistic description parser callback"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="averageCohesionViaTriangles"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Common Edge Probability statistic description parser callback"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="CommonEdgeProbability"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Number Of Edges From Size statistic description parser callback"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="NumberOfEdgesFromSize"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         name="Cohesion Via Triangles computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="cohesionViaTriangles"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Average Cohesion Via Triangles statistic computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="averageCohesionViaTriangles"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Common Edge Probability computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="CommonEdgeProbability"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="Number Of Edges From Size computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="NumberOfEdgesFromSize"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+
+</plugin>

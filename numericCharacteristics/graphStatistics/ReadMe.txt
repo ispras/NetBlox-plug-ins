@@ -1,0 +1,1 @@
+This plug-in requires python to be installed in the system, as well as the python interface for SNAP (Stanford Network Analysis Project).

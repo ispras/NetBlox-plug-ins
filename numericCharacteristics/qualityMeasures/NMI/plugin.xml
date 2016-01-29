@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         name="NMI quality measure description parsing"
+         point="scenario.parsers">
+      <parser
+            class="numericQualityNMI.NMIInScenarioParserCallback"
+            parseInPlugin="true"
+            scenaryName="NMI"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="NMI"
+            class="numericQualityNMI.NMIMeasureCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
+         name="NMI as graph mining algorithm description parser"
+         point="scenario.parsers">
+      <parser
+            class="numericQualityNMI.NMIInScenarioParserCallback"
+            parseInPlugin="true"
+            scenaryName="NMI"
+            sectionTag="graphMining">
+      </parser>
+   </extension>
+   <extension
+         name="NMI as graph mining callback"
+         point="graph.miners">
+      <miner
+            algorithmNameInScenary="NMI"
+            class="numericQualityNMI.NMIAsGraphMiningCallback"
+            isSourceInFiles="true">
+      </miner>
+   </extension>
+
+</plugin>

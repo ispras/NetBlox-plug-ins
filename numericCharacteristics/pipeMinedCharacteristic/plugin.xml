@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="scenario.parsers">
+      <parser
+            class="pipeMinedCharacteristic.ScenarioParsingCallback"
+            parseInPlugin="true"
+            scenaryName="pipeMined"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="pipeMined"
+            class="pipeMinedCharacteristic.PipeMinedCallback"
+            isSourceInFiles="false">
+      </computer>
+   </extension>
+
+</plugin>
