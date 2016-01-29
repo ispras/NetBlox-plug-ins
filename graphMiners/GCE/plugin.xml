@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="GCE.description.parser"
+         point="scenario.parsers">
+      <parser
+            class="minerGCE.GCEParserCallback"
+            parseInPlugin="true"
+            scenaryName="GCE"
+            sectionTag="graphMining">
+      </parser>
+   </extension>
+   <extension
+         point="graph.miners">
+      <miner
+            algorithmNameInScenary="GCE"
+            class="minerGCE.GCEMinerCallback"
+            isSourceInFiles="true">
+      </miner>
+   </extension>
+
+</plugin>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         name="Miner description parser callback"
+         point="scenario.parsers">
+      <parser
+            class="minerDijkstra.MinerDescriptionParserCallback"
+            parseInPlugin="false"
+            scenaryName="Dijkstra"
+            sectionTag="graphMining">
+      </parser>
+   </extension>
+   <extension
+         point="graph.miners">
+      <miner
+            algorithmNameInScenary="Dijkstra"
+            class="minerDijkstra.DijkstraMinerCallback"
+            isSourceInFiles="false">
+      </miner>
+   </extension>
+
+</plugin>

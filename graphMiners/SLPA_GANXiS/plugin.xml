@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="SLPA_GANXiS.description.parser"
+         point="scenario.parsers">
+      <parser
+            class="minerSLPA_GANXiS.GANXiS_ParserCallback"
+            parseInPlugin="false"
+            scenaryName="SLPA"
+            sectionTag="graphMining">
+      </parser>
+   </extension>
+   <extension
+         point="graph.miners">
+      <miner
+            algorithmNameInScenary="SLPA"
+            class="minerSLPA_GANXiS.GANXiS_MinerCallback"
+            isSourceInFiles="true">
+      </miner>
+   </extension>
+
+</plugin>
