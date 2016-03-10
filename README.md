@@ -35,4 +35,4 @@ The NetBlox plug-ins are released under Apache 2.0 license, as the system itself
 
 ## Questions
 
-If you have some questions considering NetBlox or the provided plug-ins, please feel free to ask us!
+If you have some questions considering NetBlox or the provided plug-ins, please feel free to write us! Our email: modis[the special email symbol, you know]ispras.ru.
