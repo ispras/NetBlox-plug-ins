@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: minerBigClAM
+Bundle-SymbolicName: minerBigClAM;singleton:=true
+Bundle-Version: 0.8.0
+Bundle-Activator: minerBigClAM.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ NetBlox;bundle-version="0.8.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

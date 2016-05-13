@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="scenario.parsers">
+      <parser
+            class="minerLinkComm.LinkCommParserCallback"
+            parseInPlugin="false"
+            scenaryName="linkcomm"
+            sectionTag="graphMining">
+      </parser>
+   </extension>
+   <extension
+         point="graph.miners">
+      <miner
+            algorithmNameInScenary="linkcomm"
+            class="minerLinkComm.LinkCommunitiesMinerCallback"
+            isSourceInFiles="true">
+      </miner>
+   </extension>
+
+</plugin>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="scenario.parsers">
+      <parser
+            class="minerCFinderAdapter.ParserCallback"
+            parseInPlugin="false"
+            scenaryName="CFinderCPM"
+            sectionTag="graphMining">
+      </parser>
+   </extension>
+   <extension
+         point="graph.miners">
+      <miner
+            algorithmNameInScenary="CFinderCPM"
+            class="minerCFinderAdapter.CFinderMinerCallback"
+            isSourceInFiles="true">
+      </miner>
+   </extension>
+
+</plugin>

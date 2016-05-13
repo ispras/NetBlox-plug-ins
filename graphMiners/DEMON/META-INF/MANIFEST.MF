@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MinerDEMON
+Bundle-SymbolicName: minerDEMON;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: minerDEMON.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ NetBlox;bundle-version="0.8.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
