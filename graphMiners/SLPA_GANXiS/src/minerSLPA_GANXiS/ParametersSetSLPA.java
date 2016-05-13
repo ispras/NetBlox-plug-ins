@@ -38,37 +38,17 @@ public class ParametersSetSLPA extends GraphMiningParametersSet {
 	}
 
 
-	private <CT> ValueFromRange<CT> clone(ValueFromRange<CT> cloned)	{	//XXX Extract to upper classes?
-		return (cloned==null) ? null : cloned.clone();
-	}
-
-
 	public Integer getIterationsNumber()	{
 		return (maximalNumberOfIterations==null) ? null : maximalNumberOfIterations.getValue();
 	}
 	public Float getThreshold()	{
-		return (threshold==null) ? null : threshold.getValue();
+		return (threshold==null) ? DEFAULT_THRESHOLD_VALUE_WHEN_UNSPECIFIED : threshold.getValue();
 	}
 	public Integer getMinCommunitySize()	{
 		return (minimalCommunitySize==null) ? null : minimalCommunitySize.getValue();
 	}
 	public Integer getMaxCommunitySize()	{
 		return (maximalCommunitySize==null) ? null : maximalCommunitySize.getValue();
-	}
-
-	public boolean isDefaultThreshold()	{
-		if (threshold == null)	{
-			return true;
-		}
-
-		Float threshold = getThreshold();
-		if (threshold.equals(0.01) || threshold.equals(0.05) || threshold.equals(0.1) || threshold.equals(0.15) || threshold.equals(0.2) ||
-				threshold.equals(0.25) || threshold.equals(0.3) || threshold.equals(0.35) || threshold.equals(0.4) || threshold.equals(0.45) ||
-				threshold.equals(0.5))	{
-			return true;
-		}
-
-		return false;
 	}
 
 	public void setThreshold(Float thresholdValue)	{
@@ -119,7 +99,7 @@ public class ParametersSetSLPA extends GraphMiningParametersSet {
 		list = appendNonNullParameter(list, minimalCommunitySize, "minC");
 		list = appendNonNullParameter(list, maximalCommunitySize, "maxC");
 
-		Float thresholdValue = (threshold!=null) ? threshold.getValue() : DEFAULT_THRESHOLD_VALUE_WHEN_UNSPECIFIED;
+		Float thresholdValue = getThreshold();
 		Pair<String, String> thresholdKeyValuePair = new Pair<String, String>("r", String.format("%.2f", thresholdValue));
 		if (list == null)	{
 			list = new ArrayList<Pair<String, String>>(1);

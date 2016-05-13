@@ -6,6 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: graphProviderExternal.Activator
 Bundle-Vendor: MODIS
 Require-Bundle: org.eclipse.core.runtime,
- NetBlox;bundle-version="0.8.0"
+ NetBlox;bundle-version="0.8.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

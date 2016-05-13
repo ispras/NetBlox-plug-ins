@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SLPA (GANXiS)
 Bundle-SymbolicName: minerSLPA_GANXiS;singleton:=true
-Bundle-Version: 0.8.9
+Bundle-Version: 0.9.0
 Bundle-Activator: minerSLPA_GANXiS.Activator
 Require-Bundle: org.eclipse.core.runtime,
- NetBlox;bundle-version="0.8.0"
+ NetBlox;bundle-version="0.8.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -16,9 +16,9 @@ public class GANXiS_MinerCallback extends AGraphMiner {
 			throw new PluginException("Mismatch of parameters type: "+miningParameters.getAlgorithmName()+" parameters in "+GANXiS_Miner.PLUGIN_ID);
 		}
 
-		MinerResults minedCovers = GANXiS_Miner.mine(graphOnDrive, (ParametersSetSLPA) miningParameters); 
+		String path = GANXiS_Miner.mine(graphOnDrive, (ParametersSetSLPA) miningParameters); 
 
-		return minedCovers;
+		return new SLPAResults(miningParameters, path);
 	}
 
 }

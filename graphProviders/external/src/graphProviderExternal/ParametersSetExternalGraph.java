@@ -3,7 +3,7 @@ package graphProviderExternal;
 import java.util.List;
 
 import ru.ispras.modis.NetBlox.scenario.RangeOfValues;
-import ru.ispras.modis.NetBlox.scenario.UncategorisedGraphParametersSet;
+import ru.ispras.modis.NetBlox.scenario.UploadedGraphDataParametersSet;
 import ru.ispras.modis.NetBlox.scenario.ValueFromRange;
 import ru.ispras.modis.NetBlox.utils.Pair;
 
@@ -13,7 +13,7 @@ import ru.ispras.modis.NetBlox.utils.Pair;
  * 
  * @author ilya
  */
-public class ParametersSetExternalGraph extends UncategorisedGraphParametersSet {
+public class ParametersSetExternalGraph extends UploadedGraphDataParametersSet {
 
 	public ParametersSetExternalGraph(String graphDescriptionID, boolean directed, boolean weighted,
 			String directoryPathname, String graphFileName, String referenceCommunitiesRelativeFileName,
@@ -22,6 +22,7 @@ public class ParametersSetExternalGraph extends UncategorisedGraphParametersSet 
 		super("External", graphDescriptionID, directed, weighted, directoryPathname, graphFileName,
 				referenceCommunitiesRelativeFileName, externalSetsForMiningFilenames, externalSetsForMeasuresFilenames,
 				attributesFileName, generation);
+		setPathToRequiredGraphExternallyFixed(true);
 	}
 
 	/**
