@@ -1,0 +1,3 @@
+This plug-in uses CFinder implementation of CPM and is, as a matter of fact, a CFinder adapter.
+Binary implementation of CFinder has been downloaded from http://cfinder.org/ and is put now to the ./apps/ subdirectory together with a temporary license file. The latter has probably expired already. If you want to use this plug-in you need to obtain your own license file from http://cfinder.org/ (which is currently free for non commercial purposes) and replace the one in ./apps/ .
+Have a good experience.
