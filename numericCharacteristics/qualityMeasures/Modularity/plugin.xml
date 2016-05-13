@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         name="Modularity quality measure description parsing"
+         point="scenario.parsers">
+      <parser
+            class="numericQualityModularity.ModularityInScenarioParserCallback"
+            parseInPlugin="true"
+            scenaryName="modularity"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="modularity"
+            class="numericQualityModularity.ModularityMeasureCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+
+</plugin>

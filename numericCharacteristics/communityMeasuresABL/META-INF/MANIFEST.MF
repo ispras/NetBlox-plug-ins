@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: NumericCommunityMeasuresABL
+Bundle-SymbolicName: numericCommunitiesMeasuresABL;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: numericCommunitiesMeasuresABL.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ NetBlox
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
