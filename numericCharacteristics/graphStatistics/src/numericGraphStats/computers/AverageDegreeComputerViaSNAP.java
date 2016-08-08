@@ -24,7 +24,7 @@ public class AverageDegreeComputerViaSNAP extends DegreesDistributionComputerVia
 			numberOfNodes += numberOfOccurences;
 		}
 
-		float averageDegree = cumulativeDegree / numberOfNodes;
+		float averageDegree = ((float)cumulativeDegree) / numberOfNodes;
 		NumericCharacteristic result =  new NumericCharacteristic(NumericCharacteristic.Type.SINGLE_VALUE, averageDegree);
 
 		return result;

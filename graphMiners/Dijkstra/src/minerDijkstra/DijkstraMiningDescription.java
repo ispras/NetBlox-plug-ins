@@ -72,6 +72,8 @@ public class DijkstraMiningDescription extends DescriptionGraphMiningAlgorithm {
 			sourceIDValue = initiateValue(sourceIDsIterator);	//XXX The order matters here and in resolveValues(). That's no good.
 			targetIDValue = initiateValue(targetIDsIterator);
 
+			launchNumber = initiateValue(launchesIterator);
+
 			if (!hasNext())	{ //In case ALL ranges are absent, we know at the moment of initialisation we won't be able to perform a single iteration.
 				hasSingleIteration = true;
 			}

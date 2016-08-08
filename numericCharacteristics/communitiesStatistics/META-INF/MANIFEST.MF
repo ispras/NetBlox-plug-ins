@@ -1,13 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Numeric Communities Statistics
+Bundle-Name: NumericCommunitiesStats
 Bundle-SymbolicName: numericCommunitiesStats;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: numericCommunitiesStats.Activator
-Require-Bundle: org.eclipse.core.runtime,
- NetBlox;bundle-version="0.8.0",
- org.scala-ide.scala.library
-Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-Version: 1.0.2
 Bundle-ClassPath: lib/trove-3.0.3.jar,
  .
+Bundle-Activator: numericCommunitiesStats.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ NetBlox;bundle-version="0.9.2",
+ org.scala-ide.scala.library
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: org.apache.commons.lang,
+ org.osgi.framework;version="1.6.0"
+Bundle-ActivationPolicy: lazy

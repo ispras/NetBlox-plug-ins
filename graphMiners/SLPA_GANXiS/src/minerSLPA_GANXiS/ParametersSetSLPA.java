@@ -35,6 +35,8 @@ public class ParametersSetSLPA extends GraphMiningParametersSet {
 		this.threshold = clone(toClone.threshold);
 		this.minimalCommunitySize = clone(toClone.minimalCommunitySize);
 		this.maximalCommunitySize = clone(toClone.maximalCommunitySize);
+
+		this.launchNumber = clone(toClone.launchNumber);
 	}
 
 

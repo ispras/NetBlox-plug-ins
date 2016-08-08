@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CFinder Adapter
 Bundle-SymbolicName: minerCFinderAdapter;singleton:=true
-Bundle-Version: 0.9.0
+Bundle-Version: 0.9.1
 Bundle-Activator: minerCFinderAdapter.Activator
 Require-Bundle: org.eclipse.core.runtime,
  NetBlox;bundle-version="0.8.1"

@@ -44,8 +44,8 @@ object Utils {
 
     def readEdgeList(path: String, separator: String = "\t") = {
         Source.fromFile(path).getLines().map{
-            line => val edge = line.replace(" ", "\t").split(separator).map(_.toInt)
-                (edge(0), edge(1))
+            line => val edge = line.replace(" ", separator).split(separator).map(_.toDouble)
+                (edge(0).toInt, edge(1).toInt)
         }.toArray.distinct
     }
 
@@ -59,7 +59,7 @@ object Utils {
 
     def readCommunities(path: String, graph: TIntObjectHashMap[Array[Int]], separator: String = "\t") = {
         Source.fromFile(path).getLines().map{
-            line => line.replace(" ", "\t").split(separator).map(_.toInt).filter(graph.containsKey).toSet
+            line => line.replace(" ", separator).split(separator).map(_.toInt).filter(graph.containsKey).toSet
         }.filter(_.nonEmpty).toArray
     }
 }

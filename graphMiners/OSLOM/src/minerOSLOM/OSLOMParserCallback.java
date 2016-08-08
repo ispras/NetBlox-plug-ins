@@ -1,14 +1,26 @@
 package minerOSLOM;
 
-import java.io.InputStream;
-
-import ru.ispras.modis.NetBlox.parser.extensionInterfaces.IGraphMiningDescriptionParser;
+import ru.ispras.modis.NetBlox.parser.basicParsersAndUtils.MiningDescriptionParser;
+import ru.ispras.modis.NetBlox.parser.extensionInterfaces.IParserSupplier;
+import ru.ispras.modis.NetBlox.parser.xmlParser.XMLElementProcessor;
 import ru.ispras.modis.NetBlox.scenario.DescriptionGraphMiningAlgorithm;
 
-public class OSLOMParserCallback implements IGraphMiningDescriptionParser {
+public class OSLOMParserCallback implements IParserSupplier {
+	private OSLOMDescriptionParser parser = null;
+
 	@Override
-	public DescriptionGraphMiningAlgorithm parseMiningDescription(InputStream tagContent) {
-		return new DescriptionGCD_OSLOM();
+	public XMLElementProcessor getXMLElementParser() {
+		if (parser == null)	{
+			parser = new OSLOMDescriptionParser();
+		}
+		return parser;
 	}
 
+
+	private class OSLOMDescriptionParser extends MiningDescriptionParser	{
+		@Override
+		protected DescriptionGraphMiningAlgorithm createMinerDescription() {
+			return new DescriptionGCD_OSLOM();
+		}
+	}
 }

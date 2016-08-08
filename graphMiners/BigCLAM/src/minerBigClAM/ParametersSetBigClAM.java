@@ -1,5 +1,6 @@
 package minerBigClAM;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.ispras.modis.NetBlox.scenario.GraphMiningParametersSet;
@@ -16,6 +17,8 @@ public class ParametersSetBigClAM extends GraphMiningParametersSet {
 	//numberOfThreads?
 	private ValueFromRange<Float> alphaForBacktrackingLineSearch = null;
 	private ValueFromRange<Float> betaForBacktrackingLineSearc = null;
+
+	private static final Integer  DEFAULT_NUMBER_OF_COMMUNITIES_TO_DETECT = -1;
 
 	public ParametersSetBigClAM(String algorithmNameInScenario, String algorithmDescriptionID, ValueFromRange<Integer> numberOfCommunitiesToDetect,
 			ValueFromRange<Integer> minCommunitiesNumber, ValueFromRange<Integer> maxCommunitiesNumber, ValueFromRange<Integer> numberOfTrialsOfCommNum,
@@ -80,7 +83,12 @@ public class ParametersSetBigClAM extends GraphMiningParametersSet {
 	 */
 	@Override
 	public List<Pair<String, String>> getSpecifiedParametersAsPairsOfUniqueKeysAndValues() {
-		List<Pair<String, String>> list = appendNonNullParameter(null, numberOfCommunitiesToDetect, "c");
+		List<Pair<String, String>> list = new ArrayList<Pair<String, String>>();
+		
+		Integer numberOfCommunitiesToDetectValue = (numberOfCommunitiesToDetect!=null) ? numberOfCommunitiesToDetect.getValue() : DEFAULT_NUMBER_OF_COMMUNITIES_TO_DETECT;
+		Pair<String, String> numberOfCommunitiesToDetectKeyValuePair = new Pair<String, String>("c", numberOfCommunitiesToDetectValue.toString());
+		list.add(numberOfCommunitiesToDetectKeyValuePair);
+
 		list = appendNonNullParameter(list, minCommunitiesNumber, "mc");
 		list = appendNonNullParameter(list, maxCommunitiesNumber, "xc");
 		list = appendNonNullParameter(list, numberOfTrialsOfCommunitiesNumbers, "nc");

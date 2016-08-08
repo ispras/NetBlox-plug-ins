@@ -22,6 +22,6 @@ object Separability extends CommunityBased[Double] {
         val in = community.foldLeft(0d)((sum, user) => sum + graph.get(user).count(community))
         val out = community.foldLeft(0d)((sum, user) => sum + graph.get(user).count(!community.contains(_)))
 
-        0.5 * in.toDouble / out
+        in.toDouble / out //Version for directed graphs. For undirected the value should be multiplied by 0.5
     }
 }

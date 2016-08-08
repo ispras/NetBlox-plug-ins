@@ -31,7 +31,7 @@ def printClusteringCoefficient(graph):
 
 
 pathToGraphFile = sys.argv[1]
-isGraphDirected = sys.argv[2]
+isGraphDirected = sys.argv[2] == 'true'
 taskNumberCode = int(sys.argv[3])
 
 graph = snap.LoadEdgeList(snap.PNGraph if isGraphDirected else snap.PUNGraph, pathToGraphFile, 0, 1)

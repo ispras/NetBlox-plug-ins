@@ -1,5 +1,6 @@
 package minerCFinderAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.ispras.modis.NetBlox.scenario.GraphMiningParametersSet;
@@ -14,6 +15,8 @@ public class ParametersSetCFinder extends GraphMiningParametersSet {
 	private ValueFromRange<Float> maxCliquesSearchTime = null;
 	private ValueFromRange<Float> weightIntensityThreshold = null;
 	private ValueFromRange<Integer> kCliqueSize = null;
+	
+	private static final Integer DEFAULT_K_CLIQUE_SIZE = 3;
 
 	public ParametersSetCFinder(String algorithmNameInScenario, String algorithmDescriptionID,
 			ValueFromRange<Float> minWeightThreshold, ValueFromRange<Float> maxWeightThreshold,
@@ -36,6 +39,8 @@ public class ParametersSetCFinder extends GraphMiningParametersSet {
 		this.maxCliquesSearchTime = clone(toClone.maxCliquesSearchTime);
 		this.weightIntensityThreshold = clone(toClone.weightIntensityThreshold);
 		this.kCliqueSize = clone(toClone.kCliqueSize);
+
+		this.launchNumber = clone(toClone.launchNumber);
 	}
 
 
@@ -56,7 +61,7 @@ public class ParametersSetCFinder extends GraphMiningParametersSet {
 	}
 
 	public Integer getCliqueSize()	{
-		return (kCliqueSize==null) ? null : kCliqueSize.getValue();
+		return (kCliqueSize==null) ? DEFAULT_K_CLIQUE_SIZE : kCliqueSize.getValue();
 	}
 
 
@@ -118,7 +123,11 @@ public class ParametersSetCFinder extends GraphMiningParametersSet {
 
 		list = appendNonNullParameter(list, maxCliquesSearchTime, "t");
 		list = appendNonNullParameter(list, weightIntensityThreshold, "I");
-		list = appendNonNullParameter(list, kCliqueSize, "k");
+		
+		if (list == null)	{
+			list = new ArrayList<Pair<String, String>>(1);
+		}
+		list.add(new Pair<String, String>("r", getCliqueSize().toString()));
 
 		return list;
 	}

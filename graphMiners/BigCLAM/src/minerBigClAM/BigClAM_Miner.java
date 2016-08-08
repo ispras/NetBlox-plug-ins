@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.apache.commons.lang.SystemUtils;
 
+import ru.ispras.modis.NetBlox.dataStructures.Graph;
+import ru.ispras.modis.NetBlox.dataStructures.IGraph;
 import ru.ispras.modis.NetBlox.exceptions.ExternalException;
 import ru.ispras.modis.NetBlox.exceptions.GraphMiningException;
 import ru.ispras.modis.NetBlox.graphAlgorithms.graphMining.GraphOnDrive;
@@ -41,7 +43,7 @@ public class BigClAM_Miner extends ExternalApplicationProvider {
 			String notThisOS = "The current version of BigClAM plug-in doesn't support Windows OS.";
 			throw new GraphMiningException(notThisOS);
 		}
-
+		
 		List<String> command = generateCommand(graphOnDrive, parameters);
 		try {
 			Path outputPath = Paths.get(TEMP_OUTPUT_FOLDER);
@@ -64,9 +66,17 @@ public class BigClAM_Miner extends ExternalApplicationProvider {
 		command.add("-o:"+TEMP_OUTPUT_FOLDER);
 
 		List<Pair<String, String>> specifiedParametersList = parameters.getSpecifiedParametersAsPairsOfUniqueKeysAndValues();
-		if (specifiedParametersList != null)	{
-			for (Pair<String, String> keyValue : specifiedParametersList)	{
-				command.add("-"+keyValue.getKey()+":"+keyValue.getValue());
+		
+		if (specifiedParametersList != null) {
+			for (Pair<String, String> keyValue : specifiedParametersList) {
+				String key = keyValue.getKey();
+				String value = keyValue.getValue();
+				if (keyValue.getKey().equals("xc") && Integer.valueOf(value) == -1) {
+					// Setting max number of communities to try parameter equal to number of nodes.
+					IGraph g = new Graph(graphOnDrive.getGraphFilePathString(), graphOnDrive.isDirected(), graphOnDrive.isWeighted());
+					value = String.valueOf(g.size());
+				}
+				command.add("-" + key + ":" + value);
 			}
 		}
 

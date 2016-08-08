@@ -13,6 +13,10 @@ public class SeparabilityComputer extends DataInFilesStatisticComputer {
 		List<Object> separabilities = Separability.apply(groupsOfNodesFilePathString, graphOnDrive.getGraphFilePathString());
 
 		NumericCharacteristic result = makeCharacteristicOutOfDoubleValues(separabilities);
+		if (!graphOnDrive.isDirected())	{
+			result.multiplyBy(0.5);
+		}
+
 		return result;
 	}
 

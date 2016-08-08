@@ -6,7 +6,7 @@
          point="scenario.parsers">
       <parser
             class="minerOSLOM.OSLOMParserCallback"
-            parseInPlugin="true"
+            parseInPlugin="false"
             scenaryName="OSLOM"
             sectionTag="graphMining">
       </parser>
