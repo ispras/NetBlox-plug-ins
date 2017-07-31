@@ -14,35 +14,42 @@ public class ParametersSetLFR extends GraphParametersSet {
 	private ValueFromRange<Float> on_share;		//Share of nodes that participate in intersections.
 	private ValueFromRange<Integer> minimalCommunitySize;
 	private ValueFromRange<Integer> maximalCommunitySize;
+
 	private ValueFromRange<Float> mu;	//Mixing coefficient.
+	private ValueFromRange<Float> muTopology;	//Mixing coefficient for the topology (case of weighted LFR).
+	private ValueFromRange<Float> muWeights;	//Mixing coefficient for the weight distribution (case of weighted LFR).
+
 	private ValueFromRange<Integer> averageNodeDegree;
 	private ValueFromRange<Integer> maximalNodeDegree;
+	private ValueFromRange<Float> averageClusteringCoefficient;
+
 	private ValueFromRange<Float> t1_minusExpDegreeSequence;
 	private ValueFromRange<Float> t2_minusExpCommunitiesSizesDistribution;
-	private ValueFromRange<Float> averageClusteringCoefficient;
+	private ValueFromRange<Float> beta_exponentWeightDistribution;
 
 
 	public ParametersSetLFR(String graphTypeName, String graphDescriptionID, boolean directed, boolean weighted,
 			ValueFromRange<Integer> numberOfNodes, ValueFromRange<Integer> om, ValueFromRange<Float> on_share,
-			ValueFromRange<Integer> minimalCommunitySize, ValueFromRange<Integer> maximalCommunitySize, ValueFromRange<Float> mu,
+			ValueFromRange<Integer> minimalCommunitySize, ValueFromRange<Integer> maximalCommunitySize,
+			ValueFromRange<Float> mu, ValueFromRange<Float> muTopology, ValueFromRange<Float> muWeights,
 			ValueFromRange<Integer> averageNodeDegree, ValueFromRange<Integer> maximalNodeDegree,
 			ValueFromRange<Float> t1_minusExpDegreeSequence, ValueFromRange<Float> t2_minusExpCommunitiesSizesDistribution,
-			ValueFromRange<Float> averageClusteringCoefficient,
-			String referenceCommunitiesRelativeFileName,
-			RangeOfValues<String> externalSetsForMiningFilenames, RangeOfValues<String> externalSetsForMeasuresFilenames,
-			String attributesFileName, ValueFromRange<Integer> generation)	{
-		super(graphTypeName, graphDescriptionID, directed, weighted, numberOfNodes,
-				referenceCommunitiesRelativeFileName, externalSetsForMiningFilenames, externalSetsForMeasuresFilenames, attributesFileName, generation);
+			ValueFromRange<Float> exponentWeightDistribution, ValueFromRange<Float> averageClusteringCoefficient,
+			ValueFromRange<Integer> generation)	{
+		super(graphTypeName, graphDescriptionID, directed, weighted, numberOfNodes, generation);
 
 		this.om = om;
 		this.on_share = on_share;
 		this.minimalCommunitySize = minimalCommunitySize;
 		this.maximalCommunitySize = maximalCommunitySize;
 		this.mu = mu;
+		this.muTopology = muTopology;
+		this.muWeights = muWeights;
 		this.averageNodeDegree = averageNodeDegree;
 		this.maximalNodeDegree = maximalNodeDegree;
 		this.t1_minusExpDegreeSequence = t1_minusExpDegreeSequence;
 		this.t2_minusExpCommunitiesSizesDistribution = t2_minusExpCommunitiesSizesDistribution;
+		this.beta_exponentWeightDistribution = exponentWeightDistribution;
 		this.averageClusteringCoefficient = averageClusteringCoefficient;
 	}
 
@@ -51,14 +58,14 @@ public class ParametersSetLFR extends GraphParametersSet {
 	 * Get Om - number of communities per node in an intersection.
 	 */
 	public Integer getOm()	{
-		return om.getValue();
+		return (om==null) ? null : om.getValue();
 	}
 
 	/**
 	 * Get On share - share of nodes that participate in intersections.
 	 */
 	public Float getOnShare()	{
-		return on_share.getValue();
+		return (on_share==null) ? null : on_share.getValue();
 	}
 
 	public Integer getMinimalCommunitySize()	{
@@ -72,6 +79,12 @@ public class ParametersSetLFR extends GraphParametersSet {
 	public Float getMu()	{
 		return (mu==null) ? null : mu.getValue();
 	}
+	public Float getMuTopology()	{
+		return (muTopology==null) ? null : muTopology.getValue();
+	}
+	public Float getMuWeights()	{
+		return (muWeights==null) ? null : muWeights.getValue();
+	}
 
 	public Integer getAverageNodeDegree()	{
 		return (averageNodeDegree==null) ? null : averageNodeDegree.getValue();
@@ -84,9 +97,11 @@ public class ParametersSetLFR extends GraphParametersSet {
 	public Float get_t1()	{
 		return (t1_minusExpDegreeSequence==null) ? null : t1_minusExpDegreeSequence.getValue();
 	}
-
 	public Float get_t2()	{
 		return (t2_minusExpCommunitiesSizesDistribution==null) ? null : t2_minusExpCommunitiesSizesDistribution.getValue();
+	}
+	public Float get_beta_exponentWeightDistribution()	{
+		return (beta_exponentWeightDistribution==null) ? null : beta_exponentWeightDistribution.getValue();
 	}
 
 	public Float getAverageClusteringCoefficient()	{
@@ -100,11 +115,14 @@ public class ParametersSetLFR extends GraphParametersSet {
 				(minimalCommunitySize != null)  &&  (!minimalCommunitySize.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
 				(maximalCommunitySize != null)  &&  (!maximalCommunitySize.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
 				(mu != null)  &&  (!mu.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
+				(muTopology != null)  &&  (!muTopology.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
+				(muWeights != null)  &&  (!muWeights.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
 				(averageNodeDegree != null)  &&  (!averageNodeDegree.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
 				(maximalNodeDegree != null)  &&  (!maximalNodeDegree.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
 				(t1_minusExpDegreeSequence != null)  &&  (!t1_minusExpDegreeSequence.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
 				(t2_minusExpCommunitiesSizesDistribution != null)  &&
 					(!t2_minusExpCommunitiesSizesDistribution.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
+				(beta_exponentWeightDistribution != null)  &&  (!beta_exponentWeightDistribution.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
 				(averageClusteringCoefficient != null)  &&  (!averageClusteringCoefficient.getRangeId().equals(RangeOfValues.NO_RANGE_ID))  ||
 				super.hasParametersFromSomeRange();
 	}
@@ -127,6 +145,12 @@ public class ParametersSetLFR extends GraphParametersSet {
 		else if ((mu != null)  &&  id.equals(mu.getRangeId()))	{
 			result = mu.getValue();
 		}
+		else if ((muTopology != null)  &&  id.equals(muTopology.getRangeId()))	{
+			result = muTopology.getValue();
+		}
+		else if ((muWeights != null)  &&  id.equals(muWeights.getRangeId()))	{
+			result = muWeights.getValue();
+		}
 		else if ((averageNodeDegree != null)  &&  id.equals(averageNodeDegree.getRangeId()))	{
 			result = averageNodeDegree.getValue();
 		}
@@ -138,6 +162,9 @@ public class ParametersSetLFR extends GraphParametersSet {
 		}
 		else if ((t2_minusExpCommunitiesSizesDistribution != null)  &&  id.equals(t2_minusExpCommunitiesSizesDistribution.getRangeId()))	{
 			result = t2_minusExpCommunitiesSizesDistribution.getValue();
+		}
+		else if ((beta_exponentWeightDistribution != null)  &&  id.equals(beta_exponentWeightDistribution.getRangeId()))	{
+			result = beta_exponentWeightDistribution.getValue();
 		}
 		else if ((averageClusteringCoefficient != null)  &&  id.equals(averageClusteringCoefficient.getRangeId()))	{
 			result = averageClusteringCoefficient.getValue();
@@ -169,6 +196,12 @@ public class ParametersSetLFR extends GraphParametersSet {
 		if (mu != null)	{
 			builder.append("] [mu=").append(getMu());
 		}
+		if (muTopology != null)	{
+			builder.append("] [mu for topology=").append(getMuTopology());
+		}
+		if (muWeights != null)	{
+			builder.append("] [mu for weights=").append(getMuWeights());
+		}
 		if (averageNodeDegree != null)	{
 			builder.append("] [average node degree=").append(getAverageNodeDegree());
 		}
@@ -180,6 +213,9 @@ public class ParametersSetLFR extends GraphParametersSet {
 		}
 		if (t2_minusExpCommunitiesSizesDistribution != null)	{
 			builder.append("] [minus exponent2 for communities sizes distribution=").append(get_t2());
+		}
+		if (beta_exponentWeightDistribution != null)	{
+			builder.append("] [exponent for the weight distribution=").append(get_beta_exponentWeightDistribution());
 		}
 		if (averageClusteringCoefficient != null)	{
 			builder.append("] [average clustering coefficient=").append(getAverageClusteringCoefficient());
@@ -195,20 +231,23 @@ public class ParametersSetLFR extends GraphParametersSet {
 		List<List<Pair<String, String>>> result = null;
 
 		List<Pair<String, String>> sublist = getCommonGraphParametersInList();
-		sublist = appendNonNullParameter(sublist, minimalCommunitySize, "mc");	//TODO Reform to reuse when launching external application?
+		sublist = appendNonNullParameter(sublist, minimalCommunitySize, "mc");	//XXX Reform to reuse when launching external application?
 		sublist = appendNonNullParameter(sublist, maximalCommunitySize, "Mc");
 		sublist = appendNonNullParameter(sublist, mu, "mu");
+		sublist = appendNonNullParameter(sublist, muTopology, "mut");
+		sublist = appendNonNullParameter(sublist, muWeights, "muw");
 		sublist = appendNonNullParameter(sublist, averageNodeDegree, "k");
 		sublist = appendNonNullParameter(sublist, maximalNodeDegree, "maxk");
 		sublist = appendNonNullParameter(sublist, t1_minusExpDegreeSequence, "t1");
 		sublist = appendNonNullParameter(sublist, t2_minusExpCommunitiesSizesDistribution, "t2");
+		sublist = appendNonNullParameter(sublist, beta_exponentWeightDistribution, "beta");
 		sublist = appendNonNullParameter(sublist, averageClusteringCoefficient, "C");
 		result = appendNonNullSublist(result, sublist);
 
-		sublist = appendNonNullParameter(null, om, "commPerNode");	//TODO Reform to reuse when launching external application?
+		sublist = appendNonNullParameter(null, om, "commPerNode");	//XXX Reform to reuse when launching external application?
 		result = appendNonNullSublist(result, sublist);
 
-		sublist = appendNonNullParameter(null, on_share, "overlapFrac");	//TODO Reform to reuse when launching external application?
+		sublist = appendNonNullParameter(null, on_share, "overlapFrac");	//XXX Reform to reuse when launching external application?
 		result = appendNonNullSublist(result, sublist);
 
 		return result;

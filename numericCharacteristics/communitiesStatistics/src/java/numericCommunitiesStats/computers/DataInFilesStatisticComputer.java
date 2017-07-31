@@ -3,10 +3,12 @@ package numericCommunitiesStats.computers;
 import ru.ispras.modis.NetBlox.dataStructures.NumericCharacteristic;
 import ru.ispras.modis.NetBlox.graphAlgorithms.graphMining.GraphOnDrive;
 import scala.Tuple2;
+import numericCommunitiesStats.ParametersSetStats;
 
 public abstract class DataInFilesStatisticComputer {
 
-	public abstract NumericCharacteristic compute(GraphOnDrive graphOnDrive, String groupsOfNodesFilePathString);
+	public abstract NumericCharacteristic compute(GraphOnDrive graphOnDrive, String groupsOfNodesFilePathString, 
+												ParametersSetStats parameters);
 
 
 	protected NumericCharacteristic makeCharacteristicOutOfDoubleValues(scala.collection.immutable.List<Object> values)	{

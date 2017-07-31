@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import numericCommunitiesStats.Activator;
+import numericCommunitiesStats.ParametersSetStats;
 import numericCommunitiesStats.PluginConfiguration;
 
 import org.apache.commons.lang.SystemUtils;
@@ -54,7 +55,8 @@ public class CohesivenessByNCPPlotComputer extends DataInsideStatisticComputer {
 
 
 	@Override
-	public NumericCharacteristic compute(IGraph graph, ISetOfGroupsOfNodes groupsOfNodes) {
+	public NumericCharacteristic compute(IGraph graph, ISetOfGroupsOfNodes groupsOfNodes, 
+			ParametersSetStats parameters) {
 		NumericCharacteristic result = new NumericCharacteristic(NumericCharacteristic.Type.LIST_OF_VALUES);
 
 		for (IGroupOfNodes group : groupsOfNodes)	{

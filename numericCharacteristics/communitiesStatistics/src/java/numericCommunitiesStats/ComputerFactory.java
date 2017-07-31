@@ -3,9 +3,10 @@ package numericCommunitiesStats;
 import numericCommunitiesStats.computers.AverageCohesionViaTrianglesComputer;
 import numericCommunitiesStats.computers.CohesionPerCommunityViaTrianglesComputer;
 import numericCommunitiesStats.computers.CohesivenessByNCPPlotComputer;
-import numericCommunitiesStats.computers.CommonEdgeProbabilityComputer;
+import numericCommunitiesStats.computers.CommonEdgeFrequencyComputer;
 import numericCommunitiesStats.computers.ConductanceBasedOnInternalEdgesComputer;
 import numericCommunitiesStats.computers.ConnectedComponentsInCommunitiesComputer;
+import numericCommunitiesStats.computers.ConnectedComponentsInCommunitiesDistributionComputer;
 import numericCommunitiesStats.computers.DataInFilesStatisticComputer;
 import numericCommunitiesStats.computers.DataInsideStatisticComputer;
 import numericCommunitiesStats.computers.DensityComputer;
@@ -43,10 +44,11 @@ public class ComputerFactory {
 	private static ConductanceBasedOnInternalEdgesComputer conductanceComputer = null;
 	private static InternalCommunityDegreeFractionComputer icdfComputer = null;
 	private static ConnectedComponentsInCommunitiesComputer ccicComputer = null;
+	private static ConnectedComponentsInCommunitiesDistributionComputer ccicDistributionComputer = null;
 
 	private static CohesionPerCommunityViaTrianglesComputer cohesionViaTrianglesComputer = null;
 	private static AverageCohesionViaTrianglesComputer averageCohesionViaTrianglesComputer = null;
-	private static CommonEdgeProbabilityComputer commonEdgeProbabilityComputer = null;
+	private static CommonEdgeFrequencyComputer commonEdgeFrequencyComputer = null;
 	private static NumberOfEdgesFromSizeComputer numberOfEdgesFromSizeComputer = null;
 
 	public static DataInFilesStatisticComputer getComputerForGroupsOfNodesInFiles(String characteristicName)	{
@@ -82,6 +84,12 @@ public class ComputerFactory {
 			}
 			computer = ccicComputer;
 		}
+		else if (characteristicName.equals(ConnectedComponentsInCommunitiesDistributionComputer.NAME_IN_SCENARIO))	{
+			if (ccicDistributionComputer == null)	{
+				ccicDistributionComputer = new ConnectedComponentsInCommunitiesDistributionComputer();
+			}
+			computer = ccicDistributionComputer;
+		}
 		else if (characteristicName.equals(CohesionPerCommunityViaTrianglesComputer.NAME_IN_SCENARIO))	{
 			if (cohesionViaTrianglesComputer == null)	{
 				cohesionViaTrianglesComputer = new CohesionPerCommunityViaTrianglesComputer();
@@ -94,11 +102,11 @@ public class ComputerFactory {
 			}
 			computer = averageCohesionViaTrianglesComputer;
 		}
-		else if (characteristicName.equals(CommonEdgeProbabilityComputer.NAME_IN_SCENARIO))	{
-			if (commonEdgeProbabilityComputer == null)	{
-				commonEdgeProbabilityComputer = new CommonEdgeProbabilityComputer();
+		else if (characteristicName.equals(CommonEdgeFrequencyComputer.NAME_IN_SCENARIO))	{
+			if (commonEdgeFrequencyComputer == null)	{
+				commonEdgeFrequencyComputer = new CommonEdgeFrequencyComputer();
 			}
-			computer = commonEdgeProbabilityComputer;
+			computer = commonEdgeFrequencyComputer;
 		}
 		else if (characteristicName.equals(NumberOfEdgesFromSizeComputer.NAME_IN_SCENARIO))	{
 			if (numberOfEdgesFromSizeComputer == null)	{

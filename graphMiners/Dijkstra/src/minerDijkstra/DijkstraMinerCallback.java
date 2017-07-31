@@ -16,7 +16,11 @@ public class DijkstraMinerCallback extends AGraphMiner {
 		DijkstraMinerParametersSet dijkstraParameters = (DijkstraMinerParametersSet) miningParameters;
 
 		List<MinerResults> algorithmResults = ShortestPathComputer.run(graph, dijkstraParameters);
-		if (algorithmResults.size() <= 1)	{
+
+		if (algorithmResults.isEmpty())	{
+			throw new GraphMiningException("No required paths could be found in graph.");
+		}
+		else if (algorithmResults.size() == 1)	{
 			return algorithmResults.get(0);
 		}
 		else	{

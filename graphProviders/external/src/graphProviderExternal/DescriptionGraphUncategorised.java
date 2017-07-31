@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.osgi.framework.Bundle;
 
 import ru.ispras.modis.NetBlox.scenario.DescriptionGraphsOneType;
+import ru.ispras.modis.NetBlox.scenario.GraphParametersSet;
 import ru.ispras.modis.NetBlox.scenario.ParametersSet;
 import ru.ispras.modis.NetBlox.scenario.ValueFromRange;
 
@@ -39,17 +40,18 @@ public class DescriptionGraphUncategorised extends DescriptionGraphsOneType {
 	public Iterator<ParametersSet> iterator() {
 		ArrayList<ParametersSet> uncategorisedParametersList = new ArrayList<ParametersSet>(1);
 
+		GraphParametersSet parametersSet;
 		if (launchNumbers == null)	{
-			uncategorisedParametersList.add(new ParametersSetExternalGraph(getId(), directed, weighted,
-					directoryPathname, graphFileName, referenceCommunitiesRelativeFileName,
-					externalSetsForMiningFiles, externalSetsForCharacterizationFiles, attributesFileName, null));
+			parametersSet = new ParametersSetExternalGraph(getId(), directed, weighted, directoryPathname, graphFileName, null);
+			setSpecifiedFilenames(parametersSet);
+			uncategorisedParametersList.add(parametersSet);
 		}
 		else	{
 			for (Integer number : launchNumbers)	{
 				ValueFromRange<Integer> generationNumber = new ValueFromRange<Integer>(launchNumbers.getRangeId(), number);
-				uncategorisedParametersList.add(new ParametersSetExternalGraph(getId(), directed, weighted,
-						directoryPathname, graphFileName, referenceCommunitiesRelativeFileName,
-						externalSetsForMiningFiles, externalSetsForCharacterizationFiles, attributesFileName, generationNumber));
+				parametersSet = new ParametersSetExternalGraph(getId(), directed, weighted, directoryPathname, graphFileName, generationNumber);
+				setSpecifiedFilenames(parametersSet);
+				uncategorisedParametersList.add(parametersSet);
 			}
 		}
 

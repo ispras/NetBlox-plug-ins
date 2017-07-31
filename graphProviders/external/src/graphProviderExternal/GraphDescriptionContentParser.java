@@ -2,7 +2,7 @@ package graphProviderExternal;
 
 import org.xml.sax.SAXException;
 
-import ru.ispras.modis.NetBlox.parser.basicParsersAndUtils.ExternalSetsOfGroupsOfNodesParser;
+import ru.ispras.modis.NetBlox.parser.basicParsersAndUtils.ExternalDataForGraphParser;
 import ru.ispras.modis.NetBlox.parser.xmlParser.CommonXMLParser;
 import ru.ispras.modis.NetBlox.parser.xmlParser.XMLStringValueProcessor;
 import ru.ispras.modis.NetBlox.scenario.RangeOfValues;
@@ -18,8 +18,8 @@ public class GraphDescriptionContentParser extends CommonXMLParser {
 	private final XMLStringValueProcessor directoryPathProcessor;
 	private final XMLStringValueProcessor graphFileNameProcessor;
 	private final XMLStringValueProcessor referenceCoverFileNameProcessor;
-	private final ExternalSetsOfGroupsOfNodesParser externalForMiningProcessor;
-	private final ExternalSetsOfGroupsOfNodesParser externalForMeasuresProcessor;
+	private final ExternalDataForGraphParser externalForMiningProcessor;
+	private final ExternalDataForGraphParser externalForMeasuresProcessor;
 	private final XMLStringValueProcessor attributesFileNameProcessor;
 
 	private DescriptionGraphUncategorised graphDescription;
@@ -31,8 +31,8 @@ public class GraphDescriptionContentParser extends CommonXMLParser {
 		add(TAG_DIRECTORY_PATH, directoryPathProcessor = new XMLStringValueProcessor());
 		add(TAG_GRAPH_FILE_NAME, graphFileNameProcessor = new XMLStringValueProcessor());
 		add(TAG_REFERENCE, referenceCoverFileNameProcessor = new XMLStringValueProcessor());
-		add(TAG_EXTERNAL_FOR_MINING, externalForMiningProcessor = new ExternalSetsOfGroupsOfNodesParser());
-		add(TAG_EXTERNAL_FOR_MEASURES, externalForMeasuresProcessor = new ExternalSetsOfGroupsOfNodesParser());
+		add(TAG_EXTERNAL_FOR_MINING, externalForMiningProcessor = new ExternalDataForGraphParser());
+		add(TAG_EXTERNAL_FOR_MEASURES, externalForMeasuresProcessor = new ExternalDataForGraphParser());
 		add(TAG_ATTRIBUTES, attributesFileNameProcessor = new XMLStringValueProcessor());
 	}
 
@@ -62,13 +62,13 @@ public class GraphDescriptionContentParser extends CommonXMLParser {
 			graphDescription.setAttributesFileName(text);
 		}
 
-		RangeOfValues<String> setsOfGroupsFilenames = externalForMiningProcessor.getSetsOfGroupsFilenames();
+		RangeOfValues<String> setsOfGroupsFilenames = externalForMiningProcessor.getExternalFilenames();
 		if (setsOfGroupsFilenames != null)	{
-			graphDescription.setExternalForMiningFiles(setsOfGroupsFilenames);
+			graphDescription.setExternalForMiningFiles(setsOfGroupsFilenames, externalForMiningProcessor.getExternalDataType());
 		}
-		setsOfGroupsFilenames = externalForMeasuresProcessor.getSetsOfGroupsFilenames();
+		setsOfGroupsFilenames = externalForMeasuresProcessor.getExternalFilenames();
 		if (setsOfGroupsFilenames != null)	{
-			graphDescription.setExternalCoversFiles(setsOfGroupsFilenames);
+			graphDescription.setExternalForCharacterizationFiles(setsOfGroupsFilenames, externalForMiningProcessor.getExternalDataType());
 		}
 	}
 

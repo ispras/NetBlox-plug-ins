@@ -1,10 +1,15 @@
 package numericCommunitiesStats.communitybased
 
 import gnu.trove.map.hash.TIntObjectHashMap
+import ru.ispras.modis.NetBlox.dataStructures.Graph
+import ru.ispras.modis.NetBlox.dataStructures.IGroupOfNodes
+import scala.collection.JavaConversions._
 
 /**
  * Created with IntelliJ IDEA.
- * User: padre * Date: 25.02.14 * Time: 18:31
+ * User: Kyrylo Chykhradze
+ */
+/**
  * 
  * I take description of separability in
  * Defining and Evaluating Network Communities based on Ground-truth, Jaewon Yang and Jure Leskovec
@@ -18,10 +23,36 @@ object Separability extends CommunityBased[Double] {
      * @param graph map node id to the set of neighbours id
      * @return separability for given community
      */
-     protected def processOneCommunity(community: Set[Int], graph: TIntObjectHashMap[Array[Int]]) = {
-        val in = community.foldLeft(0d)((sum, user) => sum + graph.get(user).count(community))
-        val out = community.foldLeft(0d)((sum, user) => sum + graph.get(user).count(!community.contains(_)))
-
-        in.toDouble / out //Version for directed graphs. For undirected the value should be multiplied by 0.5
+     protected def processOneCommunity(community: IGroupOfNodes, graph: Graph,
+         directed: Boolean, weighted: Boolean, maxWeight: Float, minWeight: Float, connectednessType: String,
+                  trianglesType: String, icdfType: String) = {
+         var externalEdgesWeight = (community.foldLeft(0d){
+              (sum, user) => {
+                var externalSum = sum.toDouble;
+                val nextInIdIterator = graph.getIncomingNeighbours(user).iterator()
+                while (nextInIdIterator.hasNext) {
+                  val nextId = nextInIdIterator.next()
+                  if (!community.contains(nextId)){
+                    var edgeWeight = graph.getEdgeWeight(nextId, user) 
+                    if (edgeWeight != null) externalSum = edgeWeight / maxWeight + externalSum
+                  }
+                }
+                val nextOutIdIterator = graph.getOutcomingNeighbours(user).iterator()
+                while (nextOutIdIterator.hasNext) {
+                  val nextId = nextOutIdIterator.next()
+                  if (!community.contains(nextId)){
+                    var edgeWeight = graph.getEdgeWeight(user, nextId) 
+                    if (edgeWeight != null) externalSum = edgeWeight / maxWeight + externalSum
+                  }
+                }
+                externalSum
+                }
+              }
+            )
+        if (!directed) externalEdgesWeight = externalEdgesWeight/ 2
+    	  val (communitySize, numberInternalEdges) = 
+    	              NumberOfEdgesFromSize.processOneCommunity(community, graph, directed, weighted,
+    	                  maxWeight, minWeight, connectednessType, trianglesType, icdfType)
+    	  numberInternalEdges.toDouble / externalEdgesWeight
     }
 }

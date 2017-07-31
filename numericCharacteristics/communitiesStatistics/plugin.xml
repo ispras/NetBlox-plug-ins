@@ -90,6 +90,16 @@
       </parser>
    </extension>
    <extension
+         name="Connected Components In Communities Distribution statistic description parsing"
+         point="scenario.parsers">
+      <parser
+            class="numericCommunitiesStats.StatisticDescriptionParserCallback"
+            parseInPlugin="true"
+            scenaryName="ConnectedComponentsInCommunitiesDistribution"
+            sectionTag="measures">
+      </parser>
+   </extension>
+   <extension
          name="Separability statistic computation callback"
          point="characteristics.computers">
       <computer
@@ -135,6 +145,15 @@
       </computer>
    </extension>
    <extension
+         name="Connected Components In Communities Distribution statistic computation callback"
+         point="characteristics.computers">
+      <computer
+            characteristicNameInScenary="ConnectedComponentsInCommunitiesDistribution"
+            class="numericCommunitiesStats.StatisticsComputationCallback"
+            isSourceInFiles="true">
+      </computer>
+   </extension>
+   <extension
          name="Cohesion Via Triangles statistic description parser callback"
          point="scenario.parsers">
       <parser
@@ -155,12 +174,12 @@
       </parser>
    </extension>
    <extension
-         name="Common Edge Probability statistic description parser callback"
+         name="Common Edge Frequency statistic description parser callback"
          point="scenario.parsers">
       <parser
             class="numericCommunitiesStats.StatisticDescriptionParserCallback"
             parseInPlugin="true"
-            scenaryName="CommonEdgeProbability"
+            scenaryName="CommonEdgeFrequency"
             sectionTag="measures">
       </parser>
    </extension>
@@ -193,10 +212,10 @@
       </computer>
    </extension>
    <extension
-         name="Common Edge Probability computation callback"
+         name="Common Edge Frequency computation callback"
          point="characteristics.computers">
       <computer
-            characteristicNameInScenary="CommonEdgeProbability"
+            characteristicNameInScenary="CommonEdgeFrequency"
             class="numericCommunitiesStats.StatisticsComputationCallback"
             isSourceInFiles="true">
       </computer>

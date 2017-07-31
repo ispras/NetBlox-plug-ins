@@ -1,5 +1,6 @@
 package numericCommunitiesStats.computers;
 
+import numericCommunitiesStats.ParametersSetStats;
 import numericCommunitiesStats.communitybased.Cohesion;
 import ru.ispras.modis.NetBlox.dataStructures.NumericCharacteristic;
 import ru.ispras.modis.NetBlox.graphAlgorithms.graphMining.GraphOnDrive;
@@ -10,8 +11,12 @@ public class CohesionPerCommunityViaTrianglesComputer extends DataInFilesStatist
 	public static final String NAME_IN_SCENARIO = "cohesionViaTriangles";
 
 	@Override
-	public NumericCharacteristic compute(GraphOnDrive graphOnDrive, String groupsOfNodesFilePathString) {
-		List<Tuple2<Object, Object>> sizesAndCohesions = Cohesion.apply(groupsOfNodesFilePathString, graphOnDrive.getGraphFilePathString());
+	public NumericCharacteristic compute(GraphOnDrive graphOnDrive, String groupsOfNodesFilePathString, 
+			ParametersSetStats parameters) {
+		boolean directed = graphOnDrive.isDirected();
+		boolean weighted = graphOnDrive.isWeighted();
+		List<Tuple2<Object, Object>> sizesAndCohesions = Cohesion.apply(groupsOfNodesFilePathString, 
+				graphOnDrive.getGraphFilePathString(), directed, weighted, parameters);
 		if (sizesAndCohesions == null  ||  sizesAndCohesions.isEmpty())	{
 			return null;
 		}

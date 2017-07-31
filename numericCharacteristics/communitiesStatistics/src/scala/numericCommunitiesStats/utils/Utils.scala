@@ -4,6 +4,8 @@ import scala.collection.mutable
 import scala.io.Source
 import gnu.trove.map.hash.TIntObjectHashMap
 import scala.collection.mutable.ArrayBuffer
+import ru.ispras.modis.NetBlox.dataStructures.Graph
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -57,9 +59,14 @@ object Utils {
         else 1
     }
 
-    def readCommunities(path: String, graph: TIntObjectHashMap[Array[Int]], separator: String = "\t") = {
+    //def readCommunities(path: String, graph: TIntObjectHashMap[Array[Int]], separator: String = "\t") = {\
+
+    def readCommunities(path: String, graph: Graph, separator: String = "\t") = {
+        
+        //List nodes = toList
         Source.fromFile(path).getLines().map{
-            line => line.replace(" ", separator).split(separator).map(_.toInt).filter(graph.containsKey).toSet
+            line => line.replace(" ", separator).split(separator).map(_.toInt).filter(x => graph.getNode(x) != null)
+            .toSet
         }.filter(_.nonEmpty).toArray
     }
 }

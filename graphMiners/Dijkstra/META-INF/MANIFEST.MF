@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dijkstra's shortest paths miner
 Bundle-SymbolicName: minerDijkstraShortestPath;singleton:=true
-Bundle-Version: 0.9.2
+Bundle-Version: 0.9.3
 Bundle-Activator: minerDijkstra.Activator
 Bundle-Vendor: MODIS
 Require-Bundle: org.eclipse.core.runtime,
- NetBlox;bundle-version="0.8.0"
+ NetBlox;bundle-version="0.10.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

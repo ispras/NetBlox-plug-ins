@@ -18,7 +18,7 @@ def printDiameter(graph, isGraphDirected):
 
 def printDegreeDistribution(graph):
 	degreesCountedArray = snap.TIntPrV()
-	snap.GetOutDegCnt(graph, degreesCountedArray)
+	snap.GetDegCnt(graph, degreesCountedArray)
 	for degreeCountPair in degreesCountedArray:
 		degree = degreeCountPair.GetVal1()
 		numberOfNodes = degreeCountPair.GetVal2()

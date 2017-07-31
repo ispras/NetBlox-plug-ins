@@ -90,23 +90,24 @@ public class LFRGenerator extends ExternalApplicationProvider implements IGraphG
 		command.add("-f");
 		command.add(generatorDirectory+"flags.dat");
 
-		//TODO How about reusing getSpecifiedParametersAsGroupsOfPairsOfUniqueKeysAndValues() from ParametersSetLFR?
-
 		int numberOfNodes = parameters.getNumberOfNodes();
 		command.add("-N");
 		command.add(String.valueOf(numberOfNodes));
 
 		Integer om = parameters.getOm();
+		if (om == null)	{	om = 0;	}
 		command.add("-om");
 		command.add(om.toString());
 
-		int on = (int)(numberOfNodes * parameters.getOnShare());
+		Float onShare = parameters.getOnShare();
+		if (onShare == null)	{	onShare = 0f;	}
+		int on = (int)(numberOfNodes * onShare);
 		command.add("-on");
 		command.add(String.valueOf(on));
 
 		Integer averageNodeDegree = parameters.getAverageNodeDegree();
 		if (averageNodeDegree == null)	{
-			averageNodeDegree = (int)Math.floor(15  *  (1 + (om-1)*parameters.getOnShare()));
+			averageNodeDegree = (int)Math.floor(15  *  (1 + (om-1)*onShare));
 		}
 		command.add("-k");
 		command.add(averageNodeDegree.toString());
@@ -118,14 +119,23 @@ public class LFRGenerator extends ExternalApplicationProvider implements IGraphG
 		command.add("-maxk");
 		command.add(maximalNodeDegree.toString());
 
-		addNotNullParameter(command, "-mu", parameters.getMu());
-		//TODO muTopology, muWeights ! for weighted graphs
 		addNotNullParameter(command, "-minc", parameters.getMinimalCommunitySize());
 		addNotNullParameter(command, "-maxc", parameters.getMaximalCommunitySize());
 		addNotNullParameter(command, "-t1", parameters.get_t1());
 		addNotNullParameter(command, "-t2", parameters.get_t2());
-		//TODO exponentWeightDistribution ! for weighted graphs
-		addNotNullParameter(command, "-C", parameters.getAverageClusteringCoefficient());
+
+		if (!parameters.isDirected())	{
+			addNotNullParameter(command, "-C", parameters.getAverageClusteringCoefficient());
+		}
+
+		if (parameters.isWeighted())	{
+			addNotNullParameter(command, "-mut", parameters.getMuTopology());
+			addNotNullParameter(command, "-muw", parameters.getMuWeights());
+			addNotNullParameter(command, "-beta", parameters.get_beta_exponentWeightDistribution());
+		}
+		else	{
+			addNotNullParameter(command, "-mu", parameters.getMu());
+		}
 
 		return command;
 	}

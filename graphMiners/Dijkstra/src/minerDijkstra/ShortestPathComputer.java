@@ -53,7 +53,9 @@ public class ShortestPathComputer {
 					continue;
 				}
 				DijkstraResults pathResult = assemblePathsToTarget(parameters, sourceNode, targetNode, previousNodesInPath, graph);
-				results.add(pathResult);
+				if (pathResult != null)	{
+					results.add(pathResult);
+				}
 			}
 		}
 		else	{
@@ -61,7 +63,9 @@ public class ShortestPathComputer {
 			DijkstraResults pathResult = assemblePathsToTarget(parameters, sourceNode, targetNode, previousNodesInPath, graph);
 
 			results = new ArrayList<MinerResults>(1);
-			results.add(pathResult);
+			if (pathResult != null)	{
+				results.add(pathResult);
+			}
 		}
 
 		return results;
@@ -69,26 +73,42 @@ public class ShortestPathComputer {
 
 	private static DijkstraResults assemblePathsToTarget(DijkstraMinerParametersSet parameters, IGraph.INode sourceNode, IGraph.INode targetNode,
 			Map<IGraph.INode, Collection<IGraph.INode>> previousNodesInPath, IGraph graph)	{
-		Stack<IGraph.INode> basicReversePath = new Stack<IGraph.INode>();
-		Collection<Stack<IGraph.INode>> allReversePaths = new ArrayList<Stack<IGraph.INode>>();
-		allReversePaths.add(basicReversePath);
-
-		assemblePaths(targetNode, previousNodesInPath, basicReversePath, allReversePaths);
-
 		boolean findSingle = parameters.findSingle();
 		parameters = new DijkstraMinerParametersSet(parameters.getAlgorithmName(), parameters.getAlgorithmDescriptionId(),
 				new ValueFromRange<Integer>(RangeOfValues.NO_RANGE_ID, sourceNode.getId()),
 				new ValueFromRange<Integer>(RangeOfValues.NO_RANGE_ID, targetNode.getId()),
 				findSingle);
 
+		if (sourceNode.equals(targetNode) && graph.hasEdge(sourceNode, targetNode))	{
+			Graph pathAsGraph = new Graph(graph.isDirected(), graph.isWeighted());
+			pathAsGraph.addEdge(targetNode, targetNode, graph.getEdgeWeight(targetNode, targetNode));
+			return new DijkstraResults(parameters, pathAsGraph);
+		}
+
+		Stack<IGraph.INode> basicReversePath = new Stack<IGraph.INode>();
+		Collection<Stack<IGraph.INode>> allReversePaths = new ArrayList<Stack<IGraph.INode>>();
+		allReversePaths.add(basicReversePath);
+
+		assemblePaths(targetNode, previousNodesInPath, basicReversePath, allReversePaths);
+
 		DijkstraResults miningResults = null;
 		if (findSingle)	{
 			IGraph pathAsGraph = formatAPath(allReversePaths.iterator().next(), graph);
-			miningResults = new DijkstraResults(parameters, pathAsGraph);
+			if (pathAsGraph != null)	{
+				miningResults = new DijkstraResults(parameters, pathAsGraph);
+			}
 		}
 		else	{
 			Collection<IGraph> pathsAsGraphs = formatPathsInGraph(allReversePaths, graph);
-			miningResults = new DijkstraResults(parameters, pathsAsGraphs);
+			if (!pathsAsGraphs.isEmpty())	{
+				miningResults = new DijkstraResults(parameters, pathsAsGraphs);
+			}
+		}
+
+		if (miningResults == null)	{
+			StringBuilder warningBuilder = new StringBuilder("WARNING:\tNo paths from '").append(sourceNode.getId()).append("' to '").
+					append(targetNode.getId()).append("' could be found in graph.");
+			System.out.println(warningBuilder.toString());
 		}
 		return miningResults;
 	}
@@ -108,14 +128,8 @@ public class ShortestPathComputer {
 		distancesFromSource.put(currentNode, 0f);
 		unvisitedNodes.remove(currentNode);
 
-		while (!unvisitedNodes.isEmpty())	{
-			for (IGraph.INode neighbour : graph.getNeighbours(currentNode))	{
-				if (!unvisitedNodes.contains(neighbour))	{
-					continue;
-				}
-
-				addNodeIfItShortensPathToNeighbour(graph, currentNode, neighbour, previousNodesInPath, distancesFromSource, findSingle);
-			}
+		while (!unvisitedNodes.isEmpty()  &&  currentNode != null)	{
+			inspectNeighboursForPathShortening(graph, currentNode, unvisitedNodes, previousNodesInPath, distancesFromSource, findSingle);
 
 			unvisitedNodes.remove(currentNode);
 			currentNode = getNodeWithMinimumDistanceFromSource(unvisitedNodes, distancesFromSource);
@@ -125,6 +139,22 @@ public class ShortestPathComputer {
 		}
 
 		return previousNodesInPath;
+	}
+
+	private static void inspectNeighboursForPathShortening(IGraph graph, IGraph.INode currentNode, List<IGraph.INode> unvisitedNodes,
+			Map<IGraph.INode, Collection<IGraph.INode>> previousNodesInPath, Map<IGraph.INode, Float> distancesFromSource, boolean findSingle)	{
+
+		Collection<IGraph.INode> outcomingNeighbours = graph.getOutcomingNeighbours(currentNode);
+		if (outcomingNeighbours == null)	{
+			return;
+		}
+
+		for (IGraph.INode neighbour : outcomingNeighbours)	{
+			if (!unvisitedNodes.contains(neighbour))	{
+				continue;
+			}
+			addNodeIfItShortensPathToNeighbour(graph, currentNode, neighbour, previousNodesInPath, distancesFromSource, findSingle);
+		}
 	}
 
 	private static void addNodeIfItShortensPathToNeighbour(IGraph graph, IGraph.INode currentNode, IGraph.INode neighbour,
@@ -160,7 +190,7 @@ public class ShortestPathComputer {
 
 	private static void assemblePaths(IGraph.INode targetNode, Map<IGraph.INode, Collection<IGraph.INode>> previousNodesInPath,
 			Stack<IGraph.INode> reversePath, Collection<Stack<IGraph.INode>> allReversePaths)	{
-		reversePath.add(targetNode);
+		reversePath.push(targetNode);
 
 		Collection<IGraph.INode> pathAncestors = previousNodesInPath.get(targetNode);
 		if (pathAncestors != null)	{
@@ -208,12 +238,7 @@ public class ShortestPathComputer {
 
 		IGraph.INode firstNode = reversePath.pop();
 		if (reversePath.isEmpty())	{
-			if (originalGraph.hasEdge(firstNode, firstNode))	{
-				pathAsGraph.addEdge(firstNode, firstNode, originalGraph.getEdgeWeight(firstNode, firstNode));
-			}
-			else	{	//XXX Should warn about an error?
-				return null;
-			}
+			return null;
 		}
 		else	{
 			while (!reversePath.isEmpty())	{

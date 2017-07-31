@@ -96,7 +96,7 @@ def overlap_coverage(graph, comm_list, is_directed):
     """
     num_of_participants = len(get_unique_nodes(comm_list))
     if num_of_participants == 0:
-        return -1.0
+        return "NaN"	#-1.0
     num_of_memberships = sum([len(c) for c in comm_list])
     return 1.0 * num_of_memberships / num_of_participants
 
@@ -133,7 +133,7 @@ if __name__ == "__main__":
 
     # Checking if graph contains nodes.
     if g.number_of_nodes() == 0:
-        print (-1.0)
+        print "NaN"	#(-1.0)
         quit()
 
     community_list = []
